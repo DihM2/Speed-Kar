@@ -543,10 +543,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bda28339e60ba84f8a64592000d6b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carsPrefab:
+  carsPrefabs:
   - {fileID: 5554352636404754700, guid: b8919cee95354df4a87fa74cd9732c52, type: 3}
   - {fileID: 5484395538879144164, guid: 50eff57c503189a43a496180ab0fdf11, type: 3}
   - {fileID: 3613884148182388806, guid: db79000ef1e02934799649901ee40fdb, type: 3}
+  powerupPrefabs:
+  - {fileID: 829293293689528177, guid: 00b060148f41fb240be8bb323f11f1b5, type: 3}
+  - {fileID: 686491674042692785, guid: cc9b080b8bf886d40aa953d8fe354563, type: 3}
 --- !u!4 &2104617624
 Transform:
   m_ObjectHideFlags: 0
