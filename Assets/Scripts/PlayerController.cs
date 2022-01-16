@@ -22,14 +22,6 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        /*horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        nPosX = transform.position.x + horizontalInput;
-
-        if(nPosX > -3 && nPosX < 3 && horizontalInput != 0)
-        {
-            transform.position = new Vector3(nPosX, transform.position.y);
-        }*/
 
         if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {

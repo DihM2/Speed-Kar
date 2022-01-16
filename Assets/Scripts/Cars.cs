@@ -17,4 +17,10 @@ public class Cars : MonoBehaviour
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Time.timeScale = 0;
+        Debug.Log("Game Over!");
+    }
 }
