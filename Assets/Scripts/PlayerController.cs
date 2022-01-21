@@ -56,6 +56,10 @@ public class PlayerController : MonoBehaviour
     {
         if((fuel + value) > 100)
         {
+            // Excess fuel becomes score bonus
+            int bonusScore = ((int)(fuel + value)) - 100 ;
+            UpdateScore(bonusScore);
+
             fuel = 100;
         }
         else if((fuel + value) > -1)
