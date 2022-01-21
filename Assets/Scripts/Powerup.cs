@@ -5,7 +5,7 @@ using UnityEngine;
 public class Powerup : Unit
 {
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         // special effects of the powerup
         // coin = score + 10

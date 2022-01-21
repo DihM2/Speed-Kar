@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 #endif
 
-public class UIController : MonoBehaviour
+public class MainMenuUI : MonoBehaviour
 {
     // Menus
     [SerializeField] GameObject mainMenuScreen;

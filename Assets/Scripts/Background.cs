@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+public class Background : MonoBehaviour
 {
     float speed = 2f;
+    float repeatWidth;
+    Vector3 startPos;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        startPos = transform.position;
+        repeatWidth = GetComponent<BoxCollider2D>().size.y / 2;
     }
 
     // Update is called once per frame
@@ -17,9 +20,9 @@ public class Unit : MonoBehaviour
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-        if (transform.position.y < -4)
+        if (transform.position.y < startPos.y - repeatWidth)
         {
-            Destroy(gameObject);
+            transform.position = startPos;
         }
     }
 }

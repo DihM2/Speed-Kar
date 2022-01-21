@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3921885409111767277}
   - component: {fileID: 2096573664784142285}
-  - component: {fileID: 748827099472854134}
   - component: {fileID: 7887370110939904260}
+  - component: {fileID: 167437190980646018}
   m_Layer: 0
   m_Name: Diamond
   m_TagString: Untagged
@@ -84,19 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &748827099472854134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686491674042692785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7d05af4b65dd8446a510e0b4424d533, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
 --- !u!58 &7887370110939904260
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -113,3 +100,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.8
+--- !u!114 &167437190980646018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686491674042692785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8427287773a1a7041b661da62c98634a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 50
