@@ -40,7 +40,7 @@ public class SpawnManager : MonoBehaviour
             if (timerCount > difficulty)
             {
                 string structSpawn = SpawnStructGenerator(rowSize);
-                Debug.Log(structSpawn);
+                //Debug.Log(structSpawn);
                 timerCount = 0;
 
                 SpawnObjects(structSpawn);
@@ -68,7 +68,7 @@ public class SpawnManager : MonoBehaviour
             }
 
             // if there is no empty road the last one is changed to a empty road
-            if (i == 4 && !hasEmpty)
+            if (i == (structSize - 1) && !hasEmpty)
             {
                 posType = 0;
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Gameplay : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class Gameplay : MonoBehaviour
     [SerializeField] GameObject playScreen;
     [SerializeField] GameObject pauseMenuScreen;
     [SerializeField] GameObject gameOverScreen;
+
+    [SerializeField] AudioClip veryHardMusic;
+    [SerializeField] Slider volumeSlider;
+    AudioSource bgMusic;
 
     public static Gameplay Instance { get; private set; }
 
@@ -40,6 +45,11 @@ public class Gameplay : MonoBehaviour
     private void Start()
     {
         ShowGameMode(GameManager.Instance.difficultyName);
+
+        bgMusic = Camera.main.GetComponent<AudioSource>();
+
+        bgMusic.volume = GameManager.Instance.MusicVolume;
+        volumeSlider.value = bgMusic.volume;
     }
 
     // Update is called once per frame
@@ -52,7 +62,7 @@ public class Gameplay : MonoBehaviour
         }
 
         // Pause game with [Esc] or [P] if the startScreen is inactive
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !startScreen.activeSelf)
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !startScreen.activeSelf && !gameOverScreen.activeSelf)
         {
             PauseMenu();
         }
@@ -69,23 +79,34 @@ public class Gameplay : MonoBehaviour
             playScreen.SetActive(true);
 
             isGameStart = true;
+            if(GameManager.Instance.DifficultyMode == 2f)
+            {
+                bgMusic.clip = veryHardMusic;
+            }
+            bgMusic.Play();
         }
     }
 
     public void PauseMenu()
     {
+        // Pause
         if (isGameStart)
         {
             //Time.timeScale = 0;
 
             playScreen.SetActive(false);
             pauseMenuScreen.SetActive(true);
+            bgMusic.Pause();
+
+
         }
+        // Unpause
         else
         {
             //Time.timeScale = 1.0f;
             playScreen.SetActive(true);
             pauseMenuScreen.SetActive(false);
+            bgMusic.Play();
         }
 
         isGameStart = !isGameStart;
@@ -101,6 +122,7 @@ public class Gameplay : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    // Game Over
     public void GameOver(string gameOver)
     {
         isGameStart = false;
@@ -111,25 +133,31 @@ public class Gameplay : MonoBehaviour
         pauseMenuScreen.SetActive(false);
         gameOverScreen.SetActive(true);
 
+
+        // Stop music
+        bgMusic.Stop();
+
+        // See if is a new Record
         if (GameManager.Instance.IsHighScore(score))
         {
-            // record
             string difficulty = GameManager.Instance.difficultyName;
             GameManager.Instance.UpdateTopPlayers(playerName, score, difficulty);
         }
     }
 
-
+    // Display the current game mode difficulty
     void ShowGameMode(string gameMode)
     {
         gameModeText.SetText($"Difficulty:\n{gameMode}");
     }
 
+    // Display the current score
     void ShowScore(int score)
     {
         scoreText.SetText($"Score: {score}");
     }
 
+    // Display the current fuel
     public void ShowFuel(float fuel)
     {
         gasText.SetText($"Gas: {fuel.ToString("f0")}%");
@@ -144,15 +172,27 @@ public class Gameplay : MonoBehaviour
         }
     }
 
+    // Display the Player Name
     void ShowPlayerName()
     {
         playerNameText.SetText($"Player:\n{playerName}");
     }
 
+    // Add/remove value of the score and display on the screen
     public void UpdateScore(int value)
     {
         score += value;
         // update Score Text UI
         ShowScore(score);
+    }
+
+    public void VolumeChange(float value)
+    {
+        GameManager.Instance.MusicVolume = value;
+    }
+
+    public void DifficultyChange(int value)
+    {
+        GameManager.Instance.DifficultyMode = value;
     }
 }

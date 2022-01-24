@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
@@ -13,12 +14,15 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] GameObject mainMenuScreen;
     [SerializeField] GameObject optionsMenuScreen;
     [SerializeField] GameObject recordsMenuScreen;
+    [SerializeField] GameObject controlAndCreditsMenuScreen;
 
     // Dropdown for the game difficulty
     [SerializeField] TMP_Dropdown gameModeDropdown;
 
     // Text to display the Top 3 record
     [SerializeField] TextMeshProUGUI topRecordText;
+
+    [SerializeField] Slider volumeSlider;
 
     // New Game Button clicked
     public void NewGameClicked()
@@ -30,8 +34,13 @@ public class MainMenuUI : MonoBehaviour
     // Options Button Clicked
     public void OptionsButtonClicked()
     {
+        volumeSlider.value = GameManager.Instance.MusicVolume;
+        gameModeDropdown.value = ((int)GameManager.Instance.DifficultyMode);
+
         mainMenuScreen.SetActive(false);
         optionsMenuScreen.SetActive(true);
+
+        //volumeSlider.value = GameManager.Instance.MusicVolume;
     }
 
     // Records Button Clicked
@@ -72,10 +81,11 @@ public class MainMenuUI : MonoBehaviour
     }
 
     // Change the game difficulty; 0 - easy, 1 - normal, 2 - hard, 3 - very hard
-    public void DifficultyModeChanged()
+    public void DifficultyModeChanged(int value)
     {
         //GameManager.Instance.difficultyMode = gameModeDropdown.value;
-        GameManager.Instance.DifficultyMode = gameModeDropdown.value;
+        //GameManager.Instance.DifficultyMode = gameModeDropdown.value;
+        GameManager.Instance.DifficultyMode = value;
     }
 
     // Change the text of the Record Display Text
@@ -98,7 +108,7 @@ public class MainMenuUI : MonoBehaviour
         if(top3Players != null && top3Score != null && top3Difficulty != null)
         {
             // Create the full text to display
-            string fullText = "Top Players\n";
+            string fullText = null;// = "Top Players\n";
             for(int i = 0; i < top3Players.Length; i++)
             {
                 fullText += $"{i + 1}. {top3Players[i]} - {top3Score[i]} - {top3Difficulty[i]}\n";
@@ -107,5 +117,21 @@ public class MainMenuUI : MonoBehaviour
             topRecordText.SetText(fullText);
         }
 
+    }
+
+    public void ControlsMenu()
+    {
+        // Return to Options menu
+        if (controlAndCreditsMenuScreen.activeSelf)
+        {
+            controlAndCreditsMenuScreen.SetActive(false);
+            optionsMenuScreen.SetActive(true);
+        }
+        // Show the control menu
+        else
+        {
+            controlAndCreditsMenuScreen.SetActive(true);
+            optionsMenuScreen.SetActive(false);
+        }
     }
 }

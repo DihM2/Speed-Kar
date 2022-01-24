@@ -50,6 +50,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private float musicVolume = 1f;
+    public float MusicVolume
+    {
+        get { return musicVolume; }
+        set 
+        {
+            Camera.main.GetComponent<AudioSource>().volume = value;
+            musicVolume = value;
+        } 
+    }
+
     // Awake Method
     private void Awake()
     {
@@ -114,9 +125,11 @@ public class GameManager : MonoBehaviour
     class MemoryData
     {
         //public Dictionary<string, int> topRecord;
-        public string[] top3Names;
-        public int[] top3Scores;
-        public string[] top3Difficulty;
+        public string[] top3Names = new string[3];
+        public int[] top3Scores = new int[3];
+        public string[] top3Difficulty = new string[3];
+
+        public float volume = 1f;
     }
 
     // Record the data on the disk
@@ -129,6 +142,8 @@ public class GameManager : MonoBehaviour
         data.top3Names = topPlayers;
         data.top3Scores = topScore;
         data.top3Difficulty = topDifficulty;
+        
+        data.volume = MusicVolume;
 
         string json = JsonUtility.ToJson(data);
 
@@ -149,7 +164,8 @@ public class GameManager : MonoBehaviour
             topPlayers = data.top3Names;
             topScore = data.top3Scores;
             topDifficulty = data.top3Difficulty;
+            
+            MusicVolume = data.volume;
         }
     }
-
 }
