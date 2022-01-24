@@ -71,11 +71,11 @@ public class MainMenuUI : MonoBehaviour
         mainMenuScreen.SetActive(true);
     }
 
-    // Change the game difficulty; 0 - easy, 1 - normal, 2 - hard
+    // Change the game difficulty; 0 - easy, 1 - normal, 2 - hard, 3 - very hard
     public void DifficultyModeChanged()
     {
         //GameManager.Instance.difficultyMode = gameModeDropdown.value;
-        GameManager.Instance.difficultyMode = gameModeDropdown.value;
+        GameManager.Instance.DifficultyMode = gameModeDropdown.value;
     }
 
     // Change the text of the Record Display Text
@@ -92,15 +92,16 @@ public class MainMenuUI : MonoBehaviour
         
         string[] top3Players = GameManager.Instance.topPlayers;
         int[] top3Score = GameManager.Instance.topScore;
+        string[] top3Difficulty = GameManager.Instance.topDifficulty;
         
         
-        if(top3Players != null && top3Score != null)
+        if(top3Players != null && top3Score != null && top3Difficulty != null)
         {
             // Create the full text to display
             string fullText = "Top Players\n";
             for(int i = 0; i < top3Players.Length; i++)
             {
-                fullText += $"{i + 1}. {top3Players[i]} - {top3Score[i]}\n";
+                fullText += $"{i + 1}. {top3Players[i]} - {top3Score[i]} - {top3Difficulty[i]}\n";
             }
 
             topRecordText.SetText(fullText);

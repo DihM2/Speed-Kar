@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Cars : Unit
 {
-
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Time.timeScale = 0;
-        Debug.Log("Game Over!");
-
+        
+        //Debug.Log("You Crashed! Game Over!");
+        Gameplay.Instance.GameOver("You Crashed!");
         //call the game over method
     }
 }

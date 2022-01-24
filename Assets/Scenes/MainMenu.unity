@@ -360,11 +360,13 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Hard
       m_Image: {fileID: 0}
+    - m_Text: Very Hard
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1060817699}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_TargetAssemblyTypeName: MainMenuUI, Assembly-CSharp
         m_MethodName: DifficultyModeChanged
         m_Mode: 1
         m_Arguments:
@@ -2195,7 +2197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8faa85fe05c0b4b4599c7af669fd82dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficultyMode: 1
 --- !u!4 &875646409
 Transform:
   m_ObjectHideFlags: 0

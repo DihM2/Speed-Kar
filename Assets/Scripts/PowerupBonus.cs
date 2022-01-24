@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PowerupBonus : Powerup
 {
-    [SerializeField] int points = 10;
+    [SerializeField] float points = 10;
 
+    protected override void Start()
+    {
+        // Change the bonus points based on the difficulty
+        points *= GameManager.Instance.DifficultyMode;
+        
+        base.Start();
+    }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerController playerController = collision.GetComponent<PlayerController>();
-
-        playerController.UpdateScore(points);
+        Gameplay.Instance.UpdateScore(((int)points));
 
         base.OnTriggerEnter2D(collision);
     }

@@ -14,9 +14,41 @@ public class GameManager : MonoBehaviour
     // Top players
     public string[] topPlayers { get; private set; } = new string[3] ;
     public int[] topScore { get; private set; } = new int[3];
+    public string[] topDifficulty { get; private set; } = new string[3];
 
-    // Difficulty setting: 0 - Easy, 1 - Normal, 2 - Hard
-    public int difficultyMode = 1;
+    // Difficulty setting: 0 - Easy(0.5), 1 - Normal(1), 2 - Hard(1.5), 3 - Very Hard(2)
+    public string difficultyName { get; private set; } = "Normal";
+    private float difficultyMode = 1f;
+    public float DifficultyMode 
+    {
+        get { return difficultyMode; }
+        set
+        {
+            switch (value)
+            {
+                case 0:
+                    difficultyMode = 0.5f;
+                    difficultyName = "Easy";
+                    break;
+                case 1:
+                    difficultyMode = 1f;
+                    difficultyName = "Normal";
+                    break;
+                case 2:
+                    difficultyMode = 1.5f;
+                    difficultyName = "Hard";
+                    break;
+                case 3:
+                    difficultyMode = 2f;
+                    difficultyName = "Very Hard";
+                    break;
+                default:
+                    difficultyMode = 1f;
+                    difficultyName = "Normal";
+                    break;
+            }
+        }
+    }
 
     // Awake Method
     private void Awake()
@@ -34,7 +66,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Add the new record to the top 3 list
-    public void UpdateTopPlayers(string playerName, int newScore)
+    public void UpdateTopPlayers(string playerName, int newScore, string newDifficulty)
     {
         for (int index = 0; index < topScore.Length; index++)
         {
@@ -43,15 +75,17 @@ public class GameManager : MonoBehaviour
                 // Save the old top player
                 string oldName = topPlayers[index];
                 int oldScore = topScore[index];
+                string oldDifficulty = topDifficulty[index];
 
                 // Add the new top player to the rank
                 topPlayers[index] = playerName;
                 topScore[index] = newScore;
+                topDifficulty[index] = newDifficulty;
 
                 // See if the old top player is still on the top 3
                 if (IsHighScore(oldScore))
                 {
-                    UpdateTopPlayers(oldName, oldScore);
+                    UpdateTopPlayers(oldName, oldScore, oldDifficulty);
                 }
 
                 return;
@@ -73,12 +107,16 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+
+
+
     [Serializable]
     class MemoryData
     {
         //public Dictionary<string, int> topRecord;
         public string[] top3Names;
         public int[] top3Scores;
+        public string[] top3Difficulty;
     }
 
     // Record the data on the disk
@@ -90,6 +128,7 @@ public class GameManager : MonoBehaviour
 
         data.top3Names = topPlayers;
         data.top3Scores = topScore;
+        data.top3Difficulty = topDifficulty;
 
         string json = JsonUtility.ToJson(data);
 
@@ -109,6 +148,7 @@ public class GameManager : MonoBehaviour
             //topRacers = data.topRecord;
             topPlayers = data.top3Names;
             topScore = data.top3Scores;
+            topDifficulty = data.top3Difficulty;
         }
     }
 

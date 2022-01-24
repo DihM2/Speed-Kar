@@ -1,64 +1,74 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    int score;
     float fuel = 100f;
+    float gasUseSpeed = 2f;
 
-    float difficulty = 2f;
-
-    GameplayUI gameplayUI;
+    // How many roads adjacents to the central road
+    int roadSize = 2;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameplayUI = GameObject.Find("UI Screen").GetComponent<GameplayUI>();
+        // Set the fuel use based on the game difficulty
+        // Easy: gasUseSpeed * 0.5; Normal: gasUseSpeed * 1; Hard: gasUseSpeed * 1.5; Very Hard: gasUseSpeed * 2;
+        gasUseSpeed *= GameManager.Instance.DifficultyMode;
+
+        
+        //Gameplay.Instance.ShowGameMode(GameManager.Instance.difficultyName);
     }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
+
+        // Gas use based on the time passed * difficultySpeed
+        if (Gameplay.Instance.isGameStart)
+        {
+            UpdateFuel(-Time.deltaTime * gasUseSpeed);
+        }
+        
     }
 
+    // Move the player to determined positions
     void MovePlayer()
     {
-
-        if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (Gameplay.Instance.isGameStart)
         {
-            if(transform.position.x < 2)
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
-                transform.position = new Vector3(transform.position.x + 1, transform.position.y);
+                int posX = (int)Math.Round(transform.position.x);
+                if (posX < roadSize)
+                {
+                    transform.position = new Vector3(posX + 1, transform.position.y);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                int posX = (int)Math.Round(transform.position.x);
+                if (posX > -roadSize)
+                {
+                    transform.position = new Vector3(posX - 1, transform.position.y);
+                }
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (transform.position.x > -2)
-            {
-                transform.position = new Vector3(transform.position.x - 1, transform.position.y);
-            }
-        }
-
-        UpdateFuel(- Time.deltaTime * difficulty);
     }
 
-    public void UpdateScore(int value)
-    {
-        score += value;
-        // update Score Text UI
-        gameplayUI.ShowScore(score);
-    }
 
+    // Update the fuel
     public void UpdateFuel(float value)
     {
-        if((fuel + value) > 100)
+        // Excess fuel above 100% becomes score bonus
+        if ((fuel + value) > 100)
         {
-            // Excess fuel becomes score bonus
             int bonusScore = ((int)(fuel + value)) - 100 ;
-            UpdateScore(bonusScore);
+            Gameplay.Instance.UpdateScore(bonusScore);
 
             fuel = 100;
         }
@@ -70,10 +80,10 @@ public class PlayerController : MonoBehaviour
         if(fuel < 0)
         {
             // Game over
-            Debug.Log("You are out of gas! GAME OVER!");
-            Time.timeScale = 0;
+            //Debug.Log("You are out of gas! GAME OVER!");
+            Gameplay.Instance.GameOver("You are out of gas!");
         }
         // Update gas text UI
-        gameplayUI.ShowFuel(fuel);
+        Gameplay.Instance.ShowFuel(fuel);
     }
 }
