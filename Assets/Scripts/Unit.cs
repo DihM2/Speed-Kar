@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    // INHERITANCE
+
     float speed = 2f;
 
+    // POLYMORPHISM
     // Start is called before the first frame update
     protected virtual void Start()
     {

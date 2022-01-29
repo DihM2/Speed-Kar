@@ -27,6 +27,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // ABSTRACTION
         SpawnRow(); 
     }
 
@@ -43,6 +44,7 @@ public class SpawnManager : MonoBehaviour
                 //Debug.Log(structSpawn);
                 timerCount = 0;
 
+                // ABSTRACTION
                 SpawnObjects(structSpawn);
             }
         }

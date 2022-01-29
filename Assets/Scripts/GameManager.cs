@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int[] topScore { get; private set; } = new int[3];
     public string[] topDifficulty { get; private set; } = new string[3];
 
+    // ENCAPSULATION
     // Difficulty setting: 0 - Easy(0.5), 1 - Normal(1), 2 - Hard(1.5), 3 - Very Hard(2)
     public string difficultyName { get; private set; } = "Normal";
     private float difficultyMode = 1f;
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // ENCAPSULATION
     private float musicVolume = 1f;
     public float MusicVolume
     {

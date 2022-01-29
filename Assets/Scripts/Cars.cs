@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Cars : Unit
 {
+    // INHERITANCE
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         

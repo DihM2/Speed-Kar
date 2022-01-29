@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PowerupFuel : Powerup
 {
+    // INHERITANCE
+
     [SerializeField] float fuelGallon = 20;
 
+    // POLYMORPHISM
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerController playerController = collision.GetComponent<PlayerController>();

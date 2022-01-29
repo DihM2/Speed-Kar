@@ -23,8 +23,10 @@ public class Gameplay : MonoBehaviour
     [SerializeField] Slider volumeSlider;
     AudioSource bgMusic;
 
+    // ENCAPSULATION
     public static Gameplay Instance { get; private set; }
 
+    // ENCAPSULATION
     public bool isGameStart { get; private set; } = false;
 
     string playerName;
@@ -58,16 +60,19 @@ public class Gameplay : MonoBehaviour
         // Game start with [Enter] if the startScreen is active
         if (startScreen.activeSelf && (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)))
         {
+            // ABSTRACTION
             GameStart();
         }
 
         // Pause game with [Esc] or [P] if the startScreen is inactive
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !startScreen.activeSelf && !gameOverScreen.activeSelf)
         {
+            // ABSTRACTION
             PauseMenu();
         }
     }
 
+    // ABSTRACTION
     public void GameStart()
     {
         if (nameInput.text.Length != 0)
@@ -87,6 +92,7 @@ public class Gameplay : MonoBehaviour
         }
     }
 
+    // ABSTRACTION
     public void PauseMenu()
     {
         // Pause

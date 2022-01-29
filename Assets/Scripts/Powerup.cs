@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Powerup : Unit
 {
+    // INHERITANCE
 
+    // POLYMORPHISM
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         // special effects of the powerup
